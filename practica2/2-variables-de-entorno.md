@@ -1,6 +1,8 @@
 # Variables de Entorno
-### ¿Qué son las variables de entorno
-# COMPLETAR
+### ¿Qué son las variables de entorno?
+
+
+Las variables de entorno son valores dinámicos que pueden afectar el comportamiento de los contenedores Docker y las aplicaciones que se ejecutan dentro de ellos. Estas variables proporcionan una forma de configurar y personalizar el entorno de ejecución de los contenedores, como las credenciales de conexión a bases de datos, las URL de servicios externos o las configuraciones específicas de la aplicación.
 
 ### Para crear un contenedor con variables de entorno
 
@@ -10,21 +12,57 @@ docker run -d --name <nombre contenedor> -e <nombre variable1>=<valor1> -e <nomb
 
 ### Crear un contenedor a partir de la imagen de nginx:alpine con las siguientes variables de entorno: username y role. Para la variable de entorno rol asignar el valor admin.
 
-# COMPLETAR
+# COMANDO
+### Creacion de la variable de entorno
+
+```
+docker run -d --name nginx-container -e username=Juanjo -e role=admin nginx:alpine
+```
+
+# COMANDO
+# Visualización de la variable de entorno
+```
+docker exec -it nginx-container printenv
+```
 
 # CAPTURA CON LA COMPROBACIÓN DE LA CREACIÓN DE LAS VARIABLES DE ENTORNO DEL CONTENEDOR ANTERIOR
 
+![Imagen](imagenes/Punto_2/Creacion_Variables_de_entorno.png)
+
 ### Crear un contenedor con mysql:8 , mapear todos los puertos
-# COMPLETAR
+# COMANDO
+
+```
+docker run -d --name mi_mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -P mysql:8
+```
 
 ### ¿El contenedor se está ejecutando?
-# COMPLETAR
 
-### Identificar el problema
-# COMPLETAR
+Como se puede observar el contenedor si se esta ejecutando y se lo puede evidenciar ejecutando el siguiente comando:
+
+# COMANDO
+
+```
+docker ps
+```
+
+![Imagen](imagenes/Punto_2/contenedor_Ejecutandose.png)
 
 ### Eliminar el contenedor creado con mysql:8 
-# COMPLETAR
+
+Para detener el contenedor se aplica el siguiente comando:
+
+```
+docker ps
+```
+
+Para eliminar el contenedor se aplica el siguiente comando:
+
+```
+docker ps
+```
+
+![Imagen](imagenes/Punto_2/Detener_Y_Eliminar_Contenedor.png)
 
 ### Para crear un contenedor con variables de entorno especificadas
 - Portabilidad: Las aplicaciones se vuelven más portátiles y pueden ser desplegadas en diferentes entornos (desarrollo, pruebas, producción) simplemente cambiando el archivo de variables de entorno.
@@ -41,9 +79,35 @@ docker run -d --name <nombre contenedor> --env-file=<nombreArchivo>.<extensión>
 Es necesario especificar la ruta absoluta del archivo si este se encuentra en una ubicación diferente a la que estás ejecutando el comando docker run.
 
 ### Crear un contenedor con mysql:8 , mapear todos los puertos y configurar las variables de entorno mediante un archivo
-# COMPLETAR
+
+# COMANDO
+
+```
+docker run -d --name mi_mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -P mysql:8
+```
+
+### Para agregarlo a un archivo:
+
+```
+MYSQL_ROOT_PASSWORD=my-secret-pw
+MYSQL_DATABASE=mydatabase
+MYSQL_USER=Juanjo
+MYSQL_PASSWORD=mypassword
+```
+
+### Para ejecutar:
+
+```
+docker run -d --name mi_mysql --env-file=mysql-env.env -P mysql:8
+```
 
 # CAPTURA CON LA COMPROBACIÓN DE LA CREACIÓN DE LAS VARIABLES DE ENTORNO DEL CONTENEDOR ANTERIOR 
 
+![Imagen](imagenes/Punto_2/Comprobacion_creación_variables_de_entorno.png)
+
 ### ¿Qué bases de datos existen en el contenedor creado?
-# COMPLETAR
+Las bases de datos que existen dentro del contenedor creado son las siguientes:
+
+![Imagen](imagenes/Punto_2/Bases_de_Datos_Existentes.png)
+
+

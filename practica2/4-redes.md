@@ -48,12 +48,88 @@ docker network ls
 
 ![Imagen](imagenes/esquema-ejercicio-redes.PNG)
 
-# COLOCAR UNA CAPTURA DE LAS REDES EXISTENTES CREADAS
+# Realización del Punto 4 siguiendo los pasos anteriores evidenciando el trabajo realizado a travéz de capturas de pantalla.
+### Creación de las redes net-red1 net-red2 net-red3
 
-# COLOCAR UNA(S) CAPTURAS(S) DE LOS CONTENEDORES CREADOS EN DONDE SE EVIDENCIE A QUÉ RED ESTÁN VINCULADOS
-
-### Para eliminar las redes creadas
 ```
-docker network rm <nombre de la red>
+docker network create net-red1 -d bridge
+docker network create net-red2 -d bridge
+docker network create net-red3 -d bridge
 ```
 
+# Creación de las contenedores vinculados a las redes
+### Creación del contenedor01 en net-red1
+
+```
+docker run -d --name contenedor01 --network net-red1 nginx:alpine
+```
+
+### Creación del contenedor02 en net-red2
+
+```
+docker run -d --name contenedor02 --network net-red2 nginx:alpine
+```
+
+### Creación del contenedor03 en net-red3
+
+```
+docker run -d --name contenedor03 --network net-red3 nginx:alpine
+```
+
+![Imagen](imagenes/Punto_4/Creacion_de_Contenedores_con_redes.png)
+
+
+### Verificar la conexión de los contenedores a las Redes creadas
+
+```
+docker network inspect net-red1
+docker network inspect net-red2
+docker network inspect net-red3
+```
+
+![Imagen](imagenes/Punto_4/Verificacion_Conexion_Contenedores_Con_Redes.png)
+
+
+### Listar todas las Redes creadas
+
+```
+docker network ls
+```
+
+![Imagen](imagenes/Punto_4/Redes_Creadas.png)
+
+
+### Listar todos los contenedores y sus redes
+
+```
+docker ps -a
+```
+
+![Imagen](imagenes/Punto_4/Contenedores_Y_Redes.png)
+
+
+### Detener los contenedores que están utilizando las redes
+
+```
+docker stop contenedor01 contenedor02 contenedor03
+```
+
+![Imagen](imagenes/Punto_4/Detener_Contenedores_Creados.png)
+
+
+### Eliminar los contenedores que están utilizando las redes
+
+```
+docker rm contenedor01 contenedor02 contenedor03
+```
+
+![Imagen](imagenes/Punto_4/Eliminar_Contenedores.png)
+
+
+### Eliminar las redes creadas anteriormente
+
+```
+docker network rm net-red1 net-red2 net-red3
+```
+
+![Imagen](imagenes/Punto_4/Eliminar_Redes_Creadas.png)
