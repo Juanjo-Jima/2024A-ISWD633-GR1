@@ -3,12 +3,16 @@ Un volumen nombrado (named volume) es un tipo de volumen gestionado por Docker q
 
 
 ### Crear volumen
+
 ```
 docker volume create <nombre volumen>
 ```
 
 ### Crear el volumen nombrado: vol-postgres
-# COMPLETAR CON EL COMANDO
+
+```
+docker volume create vol-postgres
+```
 
 ## MOUNTPOINT
 Un mountpoint se refiere al lugar en el sistema de archivos donde un dispositivo de almacenamiento se une (o monta) al sistema de archivos. Es el punto donde los archivos y directorios almacenados en ese dispositivo de almacenamiento son accesibles para el sistema operativo y las aplicaciones.
@@ -18,7 +22,15 @@ Por ejemplo, en Windows las unidades de almacenamiento (como `C:`, `D:`, etc.) a
 Cuando creas un volumen nombrado, Docker asigna un punto de montaje específico en el sistema de archivos del host para ese volumen.
 
 ### ¿Cuál es el Mountpoint de vol-postgres?
-# COMPLETAR CON LA RESPUESTA A LA PREGUNTA
+Para determinar el punto de montaje (Mountpoint) de un volumen en Docker, se utiliza el siguiente comando:
+
+```
+docker volume inspect vol-postgres
+```
+
+# Evidencia
+
+![Volúmenes](imagenes/Punto_4/Mountpoint_De_Vol_Postgres.png)
 
 ### Estructura del Punto de Montaje:
 - /var/lib/docker/volumes/: Es la ubicación base donde Docker almacena todos los volúmenes en el sistema de archivos del host.
@@ -30,12 +42,25 @@ En el contexto de WSL (Windows Subsystem for Linux), wsl$ se refiere al nombre d
 \\wsl.localhost\docker-desktop-data\data\docker\volumes
 
 ### Crear un contenedor vinculado a un volumen nombrado
+
 ```
 docker run -d --name <nombre contenedor> -v <nombre volumen>:<ruta contenedor> <nombre imagen>
 ```
 
 ### Crear la red net-drupal de tipo bridge
-# COMPLETAR CON EL COMANDO
+
+Para crear un contenedor vinculado a un volumen nombrado se utiliza la siguiente sentencia:
+Donde se creará un contenedor llamado mi_contenedor vinculado al volumen nombrado vol-postgres, montando el volumen en la ruta /datos dentro del contenedor, utilizando la imagen especificada.
+
+```
+docker run -d --name mi_contenedor -v vol-postgres:/datos nombre_imagen
+```
+
+Para crear la red net-drupal de tipo bridge se utiliza el siguiente comando:
+
+```
+docker network create net-drupal
+```
 
 ### Crear un servidor postgres vinculado a la red net-drupal, completar la ruta del contenedor
 docker run -d --name server-postgres -e POSTGRES_DB=db_drupal -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=user_drupal -v vol-postgres:<ruta contenedor> --network net-drupal postgres
@@ -47,17 +72,17 @@ docker run -d --name client-postgres --publish published=9500,target=80 -e PGADM
 ### Usar el cliente postgres para conectarse al servidor postgres, para la conexión usar el nombre del servidor en lugar de la dirección IP.
 
 ### Crear los volúmenes necesarios para drupal, esto se puede encontrar en la documentación
-### COMPLETAR CON LOS COMANDOS
 
 ### Crear el contenedor server-drupal vinculado a la red, usar la imagen drupal, y vincularlo a los volúmenes nombrados
 docker run -d --name server-drupal --publish published=9700,target=80 -v <nombre volumen>:<ruta contenedor> -v <nombre volumen>:<ruta contenedor> -v <nombre volumen>:<ruta contenedor> -v <nombre volumen>:<ruta contenedor> --network net-drupal drupal
 
 ### Ingrese al server-drupal y siga el paso a paso para la instalación.
-# COMPLETAR CON UNA CAPTURA DE PANTALLA DEL PASO 4
 
 _La instalación puede tomar varios minutos, mientras espera realice un diagrama de los contenedores que ha creado en este apartado._
 
-# COMPLETAR CON EL DIAGRAMA SOLICITADO
+# Evidencia
+
+![Volúmenes](imagenes/Punto_4/Diagrama_Punto4_Paso4.png)
 
 ### Eliminar un volumen específico
 ```
